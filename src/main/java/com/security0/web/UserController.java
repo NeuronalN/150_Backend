@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -44,14 +45,14 @@ public class UserController {
         return ResponseEntity.created(new URI("/api/group/" + result.getId()))
                 .body(result);
     }
-    @PutMapping("/user/{id}")
-    ResponseEntity<User> updateGroup(@Valid @RequestBody User user) {
-        log.info("Request to update group: {}", user);
+    @PutMapping("/user/update/{id}")
+    ResponseEntity<User> updateGroup(@Valid @RequestBody User user,  @PathVariable Long id) {
+        log.info("Request to update group: {}", user, id);
         User result = userRepository.save(user);
         return ResponseEntity.ok().body(result);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/user/delete/{id}")
     public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
         log.info("Request to delete group: {}", id);
         userRepository.deleteById(id);
